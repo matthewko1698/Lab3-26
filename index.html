@@ -17,7 +17,7 @@
       initialize(d);
       update(d,0,0);
 
-    });
+    })
 
     var initialize = function(data){
 
@@ -51,6 +51,9 @@
 
       var bins = BinMaker(data);
 
+      var plot = svg.append('g').classed('plot',true)
+              .attr('transform','translate('+margins.left+","+margins.top+")");
+
       plot.selectAll("rect")
           .data(bins)
           .enter()
@@ -65,7 +68,7 @@
          .call(yAxis)
          .attr('transform','translate('+(margins.left+10)+","+margins.top+')')
 
-
+       }
 
   </script>
 </html>
