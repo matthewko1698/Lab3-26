@@ -84,9 +84,10 @@ var initialize = function(dataset,day){
                 .text(function(d){
                   return d.day;
                 })
+                .style('display','inline')
                 .style('float','right')
                 .style('clear','right')
-                .style('width','35px')
+                .style('width','50px')
                 .on('click',function(d){
 
                     if(d.day>30){
