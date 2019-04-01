@@ -69,7 +69,6 @@ var changeDay = function(dataset, day){
 var initialize = function(dataset,day){
 
   console.log("day: "+day);
-  var day2 = day;
 
   var data = dataset.map(function(d){
 
@@ -88,6 +87,7 @@ var initialize = function(dataset,day){
                 .style('float','right')
                 .style('clear','right')
                 .style('width','50px')
+                .style('height','20px')
                 .on('click',function(d){
 
                     if(d.day>30){
@@ -149,20 +149,31 @@ var initialize = function(dataset,day){
   var plot = svg.append('g').classed('plot',true)
           .attr('transform','translate('+margins.left+","+margins.top+")");
 
-  plot.selectAll("rect")
-      .data(bins)
-      .enter()
-      .append("rect")
-      .attr("x", function(d){return xScale(d.x0)+3;})
-      .attr("width", barWidth)
-      .attr("y", function(d){return yScale(percentage(d));})
-      .attr("height", function(d){return height - yScale(percentage(d));})
 
 
   var yAxis = d3.axisLeft(yScale);
   svg.append('g').classed('yScale',true)
      .call(yAxis)
-     .attr('transform','translate('+(margins.left)+","+margins.top+')')
+     .attr('transform','translate('+(margins.left)+","+margins.top+')');
+
+  function make_y_gridlines() {
+         return d3.axisLeft(yScale)
+             .ticks(5)
+  }
+
+  var yAxislines = plot.append('g').classed('grid',true)
+        .call(make_y_gridlines().tickSize(-width-50).tickFormat(""))
+        .attr("transform", "translate("+(0)+","+(0)+")");
+
+
+  plot.selectAll("rect")
+            .data(bins)
+            .enter()
+            .append("rect")
+            .attr("x", function(d){return xScale(d.x0)+3;})
+            .attr("width", barWidth)
+            .attr("y", function(d){return yScale(percentage(d));})
+            .attr("height", function(d){return height - yScale(percentage(d));})
 
   var xAxis = d3.axisBottom(xScale);
         svg.append("g").classed("xAxis", true)
