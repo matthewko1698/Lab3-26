@@ -136,6 +136,7 @@ var initialize = function(dataset,day){
 
   var bins = binMaker(data);
 
+  console.log(bins);
 
   var percentage = function(d){
     return d.length/data.length;
